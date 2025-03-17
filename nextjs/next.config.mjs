@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["assets.aceternity.com"], // Add the external domain here
+    domains: ["assets.aceternity.com", "aceternity.com"], // Add the external domain here
   },
 };
 
