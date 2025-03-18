@@ -35,7 +35,6 @@ app.get("/product/:id", async (req, res) => {
 
 app.get("/products/:category", async (req, res) => {
   try {
-    console.log("Categories endpoint hit");
     const { category } = req.params;
     console.log(category);
     const client = await MongoClient.connect(url);
