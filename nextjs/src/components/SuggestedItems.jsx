@@ -8,8 +8,8 @@ export default function SuggestedItems({ id }) {
     const productData = {
       product_id: id,
     };
-
-    fetch("http://localhost:5000/recommend", {
+    console.log(productData);
+    fetch("http://localhost:8000/recommend", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
