@@ -1,5 +1,6 @@
 import { FloatingNavDemo } from "@/components/FloatingNavbar";
 import SearchAppBar from "@/components/Navbar";
+import { CartProvider } from "@/hooks/CartContext";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -8,7 +9,7 @@ export default function Document() {
       <Head />
       <body>
         {/* <SearchAppBar /> */}
-        <Main /> {/* This is where your pages render */}
+        <Main />
         <NextScript />
       </body>
     </Html>
