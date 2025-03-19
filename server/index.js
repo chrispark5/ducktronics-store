@@ -84,6 +84,37 @@ app.get("/search", async (req, res) => {
     console.log(e);
   }
 });
+
+//Hero Parallax Route
+app.get("/heroparallax", async (req, res) => {
+  try {
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+
+    // Generate 16 unique random numbers between 1 and 1000
+    const randomIds = new Set();
+    while (randomIds.size < 16) {
+      const randomId = Math.floor(Math.random() * 1000) + 1;
+      randomIds.add(randomId);
+    }
+
+    // Convert Set to Array
+    const randomIdArray = Array.from(randomIds);
+
+    // Query the database for documents with these random IDs
+    const products = await collection
+      .find({ id: { $in: randomIdArray } })
+      .toArray();
+
+    // Send the products as a JSON response
+    res.json(products);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send("An error occurred while retrieving data.");
+  }
+});
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
