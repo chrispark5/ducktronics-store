@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.neighbors import NearestNeighbors
 from pymongo import MongoClient
-
+from flask_cors import CORS
 # Connect to MongoDB
 client = MongoClient('mongodb://localhost:27017/')
 db = client['online_store']
@@ -11,7 +11,7 @@ collection = db['products']
 
 # Fetch data from MongoDB
 products = list(collection.find())
-
+print(products)
 # Convert to DataFrame
 df = pd.DataFrame(products)
 
@@ -40,15 +40,15 @@ model.fit(X_scaled)
 
 # Initialize Flask app
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
-# Endpoint to get product recommendations
 @app.route('/recommend', methods=['POST'])
 def recommend():
     data = request.json
     product_id = data.get('product_id')
-    
+    print(str(product_id) + " is the product id")
     # Search for the product using the custom "id" field
-    product = df.loc[df['id'] == product_id]
+    product = df.loc[df['id'] == int(product_id)]
     if product.empty:
         return jsonify({'error': 'Product not found.'}), 404
     
@@ -66,4 +66,4 @@ def recommend():
     return jsonify(recommended_products.to_dict(orient='records'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8000)
