@@ -21,13 +21,13 @@ if '_id' in df.columns:
 
 # Preprocess the data
 label_encoders = {}
-for column in ['category', 'material']:
+for column in ['category', 'color']:
     le = LabelEncoder()
     df[column] = le.fit_transform(df[column])
     label_encoders[column] = le
 
 # Select features for the model
-features = ['price', 'category', 'rating', 'material']
+features = ['price', 'category', 'rating', 'color']
 X = df[features]
 
 # Standardize the features
