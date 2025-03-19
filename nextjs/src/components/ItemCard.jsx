@@ -37,7 +37,7 @@ export default function ItemCard({ product }) {
       {/* Image */}
       <Link href="/product/[id]" as={`/product/${product.id}`} key={product.id}>
         <img
-          src={`https://via.placeholder.com/300?text=${product.name}`}
+          src={`/images/${product.category}/${product.name}.jpg`}
           alt={product.name}
           className="w-full h-48 object-cover"
         />
