@@ -1,4 +1,5 @@
 import { useCartStore } from "@/hooks/CartStore";
+import { Rating } from "@mui/material";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -58,7 +59,10 @@ export default function ItemCard({ product }) {
         {/* Product Stock */}
         <p className="text-sm text-gray-500 mt-1">Stock: {product.stock}</p>
         {/* Product Rating */}
-        <p className="text-sm text-yellow-500 mt-1">Rating: {product.rating}</p>
+        <p className="text-sm text-yellow-500 mt-1">
+          {" "}
+          <Rating value={product.rating} readOnly />
+        </p>
         {/* Add to Cart Button */}
         <button
           className={`mt-4 w-full py-2 px-4 rounded-md 

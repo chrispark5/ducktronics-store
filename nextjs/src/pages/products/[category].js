@@ -8,9 +8,9 @@ export default function CategoryPage() {
   const { category } = router.query;
 
   return (
-    <>
+    <div className="relative">
       <FloatingNavDemo />
       <IndividualCategory category={category} />
-    </>
+    </div>
   );
 }

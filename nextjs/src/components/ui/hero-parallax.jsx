@@ -3,7 +3,8 @@ import React from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-
+// import { TypewriterEffectSmooth } from "./typewriter-effect";
+import SplitText from "./split-text";
 export const HeroParallax = ({ products }) => {
   const firstRow = products.slice(0, 5);
   const secondRow = products.slice(5, 10);
@@ -88,10 +89,30 @@ export const HeroParallax = ({ products }) => {
 };
 
 export const Header = () => {
+  const words = [
+    {
+      text: "Build ",
+    },
+    {
+      text: "awesome ",
+    },
+    {
+      text: "apps ",
+    },
+    {
+      text: "with ",
+    },
+    {
+      text: "Aceternity.",
+      className: "text-blue-500 dark:text-blue-500",
+    },
+  ];
+
   return (
     <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
+      {/* <TypewriterEffectSmooth words={words} /> */}
       <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
-        The Ultimate <br /> E-commmerce Store
+        <SplitText text="Welcome to our Duck Store" />
       </h1>
       <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
         Find Exactly What You’re Looking For. Great Deals Await!

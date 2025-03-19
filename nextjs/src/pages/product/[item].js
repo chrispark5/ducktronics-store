@@ -7,10 +7,10 @@ export default function ItemPage() {
   const router = useRouter();
   const { item } = router.query;
   return (
-    <>
+    <div className="relative">
       <FloatingNavDemo />
       <IndividualItem id={item} />
       <SuggestedItems id={item} />
-    </>
+    </div>
   );
 }
