@@ -1,6 +1,7 @@
 import IndividualCategory from "@/components/IndividualCategoryPage";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { FloatingNavDemo } from "@/components/FloatingNavbar";
 
 export default function CategoryPage() {
   const router = useRouter();
@@ -8,6 +9,7 @@ export default function CategoryPage() {
 
   return (
     <>
+      <FloatingNavDemo />
       <IndividualCategory category={category} />
     </>
   );

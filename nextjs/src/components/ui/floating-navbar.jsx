@@ -13,6 +13,7 @@ import {
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import SearchIcon from "@mui/icons-material/Search";
+import { useRouter } from "next/router";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,8 +59,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export const FloatingNav = ({ navItems, className }) => {
   const { scrollYProgress } = useScroll();
-
+  const router = useRouter();
   const [visible, setVisible] = useState(true); // Change from false to true
+  const [searchTerm, setSearchTerm] = useState(""); // State to hold search term
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
     // Check if current is not undefined and is a number
@@ -77,6 +79,22 @@ export const FloatingNav = ({ navItems, className }) => {
       }
     }
   });
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    if (searchTerm) {
+      router.push(`/search?query=${searchTerm}`);
+    }
+  };
+  // Handle Enter key press
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSearchSubmit(event); // Trigger the search submit
+    }
+  };
 
   return (
     <AnimatePresence mode="wait">
@@ -113,11 +131,14 @@ export const FloatingNav = ({ navItems, className }) => {
           <span>Login</span>
           <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent  h-px" />
         </button> */}
-        <Search>
+        <Search component="form" onSubmit={handleSearchSubmit}>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
           <StyledInputBase
+            value={searchTerm} // Bind search term state
+            onChange={handleSearchChange} // Update state on change
+            onKeyDown={handleKeyDown} // Handle Enter key press
             placeholder="Search…"
             inputProps={{ "aria-label": "search" }}
           />

@@ -7,6 +7,7 @@ export default function ItemPage() {
   const { item } = router.query;
   return (
     <>
+      <FloatingNavDemo />
       <IndividualItem id={item} />
       <SuggestedItems id={item} />
     </>
