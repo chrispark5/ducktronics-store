@@ -55,7 +55,7 @@ export default function IndividualItem({ id }) {
           >
             <Box
               component="img"
-              src={item.image}
+              src={`/images/${item.category}/${item.name}.jpg`}
               alt={item.name}
               sx={{ width: "100%", borderRadius: 2 }}
             />
