@@ -45,8 +45,8 @@ export default function ItemCard({ product }) {
       <div className="p-4">
         {/* Product Name */}
         <h2 className="text-xl font-semibold text-gray-800">{product.name}</h2>
-        {/* Product Material */}
-        <p className="text-md text-gray-600 mt-2">{product.material}</p>
+        {/* Product Color */}
+        <p className="text-md text-gray-600 mt-2">{product.color}</p>
         {/* Product Price */}
         <p className="text-lg font-bold text-blue-600 mt-2">
           ${product.price.toFixed(2)}
