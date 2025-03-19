@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 export default function ItemCard({ product }) {
   const addToCart = useCartStore((state) => state.addToCart);
   const [added, setAdded] = useState(false);
-  const cardRef = useRefw(null); // Reference to the item card
+  const cardRef = useRef(null); // Reference to the item card
 
   const addItem = (product) => {
     addToCart(product);
