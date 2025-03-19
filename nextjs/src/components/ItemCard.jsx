@@ -32,7 +32,7 @@ export default function ItemCard({ product }) {
   return (
     <div
       key={product.id}
-      className="bg-white border rounded-lg shadow-lg overflow-hidden"
+      className="bg-white border rounded-lg shadow-lg overflow-hidden w-120"
       ref={cardRef}
     >
       {/* Image */}
@@ -40,7 +40,7 @@ export default function ItemCard({ product }) {
         <img
           src={`/images/${product.category}/${product.name}.jpg`}
           alt={product.name}
-          className="w-full h-48 object-cover"
+          className="w-full h-80 object-cover" // Adjusted height and object-fit
         />
       </Link>
       <div className="p-4">

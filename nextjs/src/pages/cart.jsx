@@ -14,15 +14,19 @@ import {
 import CartItem from "@/components/CartItem";
 import { useCartStore } from "@/hooks/CartStore";
 import { FloatingNavDemo } from "@/components/FloatingNavbar";
+import SearchAppBar from "@/components/Navbar";
 
 export default function ProductCards() {
   const cartItems = useCartStore((state) => state.cartItems);
-
+  const totalAmount = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
   return (
-    <>
-      <FloatingNavDemo />
-
-      <section className="h-100" style={{ backgroundColor: "#eee" }}>
+    <div className="my-20">
+      {/* <FloatingNavDemo /> */}
+      <SearchAppBar />
+      <section className="h-100">
         <MDBContainer fluid className="py-5 h-100">
           <MDBRow className="justify-content-center align-items-center h-100">
             {/* Left Column: Cart Items */}
@@ -61,15 +65,31 @@ export default function ProductCards() {
                     wrapperClass="flex-fill"
                     size="lg"
                   />
-                  <MDBBtn className="ms-3" color="warning" outline size="lg">
+                  <MDBBtn
+                    className="ms-3 w-60" // Added w-100 for full width or adjust with custom width
+                    color="primary"
+                    outline
+                    size="lg"
+                  >
                     Apply
                   </MDBBtn>
                 </MDBCardBody>
               </MDBCard>
 
+              <MDBCard className="mb-4">
+                <MDBCardBody className="p-4 d-flex justify-content-between">
+                  <MDBTypography tag="h5" className="fw-normal mb-0">
+                    Total Amount:
+                  </MDBTypography>
+                  <MDBTypography tag="h5" className="fw-bold mb-0">
+                    ${totalAmount.toFixed(2)}
+                  </MDBTypography>
+                </MDBCardBody>
+              </MDBCard>
+
               <MDBCard>
                 <MDBCardBody>
-                  <MDBBtn className="ms-3" color="warning" block size="lg">
+                  <MDBBtn className="ms-3" color="primary" block size="lg">
                     Checkout
                   </MDBBtn>
                 </MDBCardBody>
@@ -158,6 +178,6 @@ export default function ProductCards() {
           </MDBRow>
         </MDBContainer>
       </section>
-    </>
+    </div>
   );
 }

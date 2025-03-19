@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
 import { FloatingNavDemo } from "./FloatingNavbar";
+import SearchAppBar from "./Navbar";
 
 export default function IndividualCategory({ category }) {
   const [products, setProducts] = useState([]);
@@ -18,7 +19,8 @@ export default function IndividualCategory({ category }) {
 
   return (
     <>
-      <FloatingNavDemo />
+      {/* <FloatingNavDemo /> */}
+      <SearchAppBar />
       <div className="px-3 py-8">
         {/* Category Header */}
         <h2 className="text-3xl font-semibold mb-6 text-center text-gray-800">

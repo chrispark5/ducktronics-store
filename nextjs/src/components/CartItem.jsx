@@ -17,6 +17,8 @@ import {
   MDBModalBody,
   MDBModalFooter,
 } from "mdb-react-ui-kit";
+import { IconTrash, IconPlus, IconMinus } from "@tabler/icons-react";
+
 import { useCartStore } from "@/hooks/CartStore";
 
 const CartItem = ({ item }) => {
@@ -42,7 +44,7 @@ const CartItem = ({ item }) => {
               <MDBCardImage
                 className="rounded-3"
                 fluid
-                src={item.image}
+                src={`/images/${item.category}/${item.name}.jpg`}
                 alt={item.name}
               />
             </MDBCol>
@@ -57,10 +59,10 @@ const CartItem = ({ item }) => {
             >
               <MDBBtn
                 color="link"
-                className="px-2"
+                className="px-2 mr-2 d-flex justify-content-center align-items-center"
                 onClick={() => removeFromCart(item.id)}
               >
-                <MDBIcon fas icon="minus" />
+                <IconMinus />
               </MDBBtn>
 
               <MDBInput
@@ -73,10 +75,11 @@ const CartItem = ({ item }) => {
 
               <MDBBtn
                 color="link"
-                className="px-2"
+                className=" px-2 mr-2 d-flex justify-content-center align-items-center"
                 onClick={() => addToCart(item)}
               >
-                <MDBIcon fas icon="plus" />
+                {/* <MDBIcon fas icon="plus" /> */}
+                <IconPlus />
               </MDBBtn>
             </MDBCol>
             <MDBCol md="3" lg="2" xl="2" className="offset-lg-1">
@@ -92,7 +95,8 @@ const CartItem = ({ item }) => {
                 className="text-danger"
                 onClick={() => askToRemove(item.id)}
               >
-                <MDBIcon fas icon="trash text-danger" size="lg" />
+                {/* <MDBIcon fas icon="trash text-danger" size="lg" /> */}
+                <IconTrash />
               </a>
             </MDBCol>
           </MDBRow>

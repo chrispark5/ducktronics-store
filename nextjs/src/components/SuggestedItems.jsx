@@ -29,7 +29,7 @@ export default function SuggestedItems({ id }) {
   }, [id]);
 
   return (
-    <div className="h-[40rem] rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
+    <div className="h-[50rem] rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
       <h2 className="text-3xl font-semibold text-center text-gray-800 dark:text-white">
         Suggested Items
       </h2>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import ItemCard from "@/components/ItemCard";
 import { FloatingNavDemo } from "@/components/FloatingNavbar";
+import SearchAppBar from "@/components/Navbar";
 
 export default function SearchPage() {
   const router = useRouter();
@@ -41,13 +42,14 @@ export default function SearchPage() {
 
   return (
     <div className="relative">
-      <FloatingNavDemo />
-      <div className="min-h-screen bg-gray-100 py-8 px-4">
+      {/* <FloatingNavDemo /> */}
+      <SearchAppBar />
+      <div className="min-h-screen bg-gray-100 py-8 px-4 my-18">
         <h1 className="text-3xl font-semibold text-center mb-6">
           Search Products
         </h1>
 
-        <div className="max-w-6xl mx-auto bg-white p-8 rounded-lg shadow-md">
+        <div className="w-full mx-auto bg-white p-8 rounded-lg shadow-md">
           <PlaceholdersAndVanishInput
             placeholders={placeholders}
             onChange={handleChange}
