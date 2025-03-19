@@ -60,9 +60,18 @@ def recommend():
     recommended_indices = indices[0][1:]  # Exclude the first one as it is the product itself
     recommended_products = df.iloc[recommended_indices]
     
+    # Decode the 'category' column back to its original string values
+    recommended_products['category'] = label_encoders['category'].inverse_transform(
+        recommended_products['category']
+    )
+
+    recommended_products['color'] = label_encoders['color'].inverse_transform(
+        recommended_products['color']
+    )
+    
     # Convert any ObjectId fields to strings
     recommended_products['_id'] = recommended_products['_id'].astype(str)
-    
+    print(recommended_products)
     return jsonify(recommended_products.to_dict(orient='records'))
 
 if __name__ == '__main__':

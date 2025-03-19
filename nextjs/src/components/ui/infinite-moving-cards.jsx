@@ -6,7 +6,7 @@ import ItemCard from "../ItemCard";
 
 export const InfiniteMovingCards = ({
   items,
-  direction = "right",
+  direction = "left",
   speed = "fast",
   pauseOnHover = false,
   className,
