@@ -2,7 +2,7 @@ import CategoryCards from "@/components/CategoryCards"
 
 
 export default function Categories() {
-  const categoryArray = ["Tools", "Technology", "Sports"];
+  const categoryArray = ["Computers", "Phones", "Tablets", "Watches", "Audio", "Home", "Accessories"];
 
   return (
     <>
