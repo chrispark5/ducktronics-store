@@ -66,6 +66,24 @@ app.post("/order", async (req, res) => {
   }
 });
 
+app.get("/search", async (req, res) => {
+  try {
+    const { q } = req.query;
+    console.log(q);
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+    const products = await collection
+      .find({
+        $text: { $search: q },
+      })
+      .toArray();
+    console.log(products);
+    res.json(products);
+  } catch (e) {
+    console.log(e);
+  }
+});
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
