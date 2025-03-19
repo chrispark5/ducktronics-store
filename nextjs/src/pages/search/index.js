@@ -40,7 +40,7 @@ export default function SearchPage() {
   };
 
   return (
-    <>
+    <div className="relative">
       <FloatingNavDemo />
       <div className="min-h-screen bg-gray-100 py-8 px-4">
         <h1 className="text-3xl font-semibold text-center mb-6">
@@ -75,6 +75,6 @@ export default function SearchPage() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
