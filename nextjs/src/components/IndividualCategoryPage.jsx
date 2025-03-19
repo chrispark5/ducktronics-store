@@ -1,3 +1,5 @@
+import { useCartStore } from "@/hooks/CartStore";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function IndividualCategory({ category }) {
@@ -12,6 +14,8 @@ export default function IndividualCategory({ category }) {
       });
   }, [category]);
 
+  const addToCart = useCartStore((state) => state.addToCart);
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {products &&
@@ -21,11 +25,17 @@ export default function IndividualCategory({ category }) {
             className="bg-white border rounded-lg shadow-lg overflow-hidden"
           >
             {/* Image */}
-            <img
-              src={`https://via.placeholder.com/300?text=${product.name}`}
-              alt={product.name}
-              className="w-full h-48 object-cover"
-            />
+            <Link
+              href="/product/[id]"
+              as={`/product/${product.id}`}
+              key={product.id}
+            >
+              <img
+                src={`https://via.placeholder.com/300?text=${product.name}`}
+                alt={product.name}
+                className="w-full h-48 object-cover"
+              />
+            </Link>
             <div className="p-4">
               {/* Product Name */}
               <h2 className="text-xl font-semibold text-gray-800">
@@ -50,7 +60,10 @@ export default function IndividualCategory({ category }) {
                 Rating: {product.rating}
               </p>
               {/* Add to Cart Button */}
-              <button className="mt-4 w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+              <button
+                className="mt-4 w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                onClick={() => addToCart(product)}
+              >
                 Add to Cart
               </button>
             </div>
