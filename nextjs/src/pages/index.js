@@ -1,6 +1,6 @@
 import CardDemo from "@/components/cards-demo-1";
 import { FloatingDockDemo } from "@/components/floatingDock";
-import { HeroParallaxDemo } from "@/components/HeroParallax";
+import { QuackleHeroParallaxActual } from "@/components/QuackleHeroParallax";
 import { FloatingNavDemo } from "@/components/FloatingNavbar";
 import { CartProvider } from "@/hooks/CartContext";
 import Categories from "@/components/Categories";
@@ -12,7 +12,7 @@ export default function Home() {
       {/* <FloatingNavDemo /> */}
       <SearchAppBar />
       <div className="space-y-8">
-        <HeroParallaxDemo />
+        <QuackleHeroParallaxActual />
         <Categories />
       </div>
     </>
