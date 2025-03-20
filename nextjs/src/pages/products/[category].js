@@ -11,7 +11,7 @@ export default function CategoryPage() {
   return (
     <div className="my-20">
       {/* <FloatingNavDemo /> */}
-      <SearchAppBar />
+      {/* <SearchAppBar /> */}
       <IndividualCategory category={category} />
     </div>
   );

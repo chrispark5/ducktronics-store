@@ -21,7 +21,7 @@ import { IconTrash, IconPlus, IconMinus } from "@tabler/icons-react";
 
 import { useCartStore } from "@/hooks/CartStore";
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, isDiscountApplied }) => {
   const addToCart = useCartStore((state) => state.addToCart);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const removeItemCompletely = useCartStore(
@@ -35,6 +35,11 @@ const CartItem = ({ item }) => {
     setItemId(itemId);
     toggleOpen();
   };
+
+  const discountedPrice = isDiscountApplied
+    ? 0 // Set to 0 if discount is applied
+    : item.price * item.quantity;
+
   return (
     <>
       <MDBCard className="rounded-3 mb-4">
@@ -84,10 +89,17 @@ const CartItem = ({ item }) => {
             </MDBCol>
             <MDBCol md="3" lg="2" xl="2" className="offset-lg-1">
               <MDBTypography tag="h5" className="mb-0">
-                $
-                {item.price &&
-                  (item.price.toFixed(2) * item.quantity).toFixed(2)}
+                ${discountedPrice.toFixed(2)}
               </MDBTypography>
+              {isDiscountApplied && (
+                <MDBTypography
+                  tag="p"
+                  className="text-success mb-0"
+                  style={{ fontSize: "0.9rem" }}
+                >
+                  Discount Applied!
+                </MDBTypography>
+              )}
             </MDBCol>
             <MDBCol md="1" lg="1" xl="1" className="text-end">
               <a

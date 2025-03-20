@@ -3,6 +3,7 @@ import React from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import SplitText from "./split-text";
 
 export const QuackleHeroParallax = ({ products }) => {
   const firstRow = products.slice(0, 5);
@@ -91,7 +92,7 @@ export const Header = () => {
   return (
     <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
       <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
-        The Ultimate <br /> E-commmerce Store
+        <SplitText text="Welcome to our Duck Store" />
       </h1>
       <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
         Find Exactly What You’re Looking For. Great Deals Await!
@@ -125,11 +126,12 @@ export const ProductCard = ({ product, translate }) => {
           className="object-cover object-left-top absolute h-full w-full inset-0"
           alt={product.name}
         />
+
+        <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
+        <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white text-overlay z-10">
+          {product.name}
+        </h2>
       </Link>
-      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
-      <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
-        {product.name}
-      </h2>
     </motion.div>
   );
 };

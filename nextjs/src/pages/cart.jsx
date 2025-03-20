@@ -1,30 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   MDBBtn,
   MDBCard,
   MDBCardBody,
-  MDBCardImage,
   MDBCol,
   MDBContainer,
-  MDBIcon,
   MDBInput,
   MDBRow,
   MDBTypography,
 } from "mdb-react-ui-kit";
 import CartItem from "@/components/CartItem";
 import { useCartStore } from "@/hooks/CartStore";
-import { FloatingNavDemo } from "@/components/FloatingNavbar";
 import SearchAppBar from "@/components/Navbar";
 
 export default function ProductCards() {
   const cartItems = useCartStore((state) => state.cartItems);
-  const totalAmount = cartItems.reduce(
+
+  // State for discount code and total amount
+  const [discountCode, setDiscountCode] = useState("");
+  const [isDiscountApplied, setIsDiscountApplied] = useState(false);
+
+  // Calculate the total amount
+  const originalTotalAmount = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
+  const discountAmount = isDiscountApplied ? originalTotalAmount : 0;
+  const totalAmount = originalTotalAmount - discountAmount;
+
+  const handleApplyDiscount = () => {
+    if (discountCode === "duckracewinner") {
+      setIsDiscountApplied(true);
+    } else {
+      alert("Invalid discount code");
+    }
+  };
+
   return (
     <div className="my-20">
-      {/* <FloatingNavDemo /> */}
       <SearchAppBar />
       <section className="h-100">
         <MDBContainer fluid className="py-5 h-100">
@@ -37,26 +50,17 @@ export default function ProductCards() {
               Shopping Cart
             </MDBTypography>
             <MDBCol md="7" lg="6" xl="6">
-              <div className="d-flex justify-content-center align-items-center mb-4">
-                {/* <MDBTypography
-                  tag="h3"
-                  className="fw-normal mb-0 text-black text-center"
-                >
-                  Shopping Cart
-                </MDBTypography> */}
-                {/* <div>
-                  <p className="mb-0">
-                    <span className="text-muted">Sort by:</span>
-                    <a href="#!" className="text-body">
-                      price <i className="fas fa-angle-down mt-1"></i>
-                    </a>
-                  </p>
-                </div> */}
-              </div>
+              <div className="d-flex justify-content-center align-items-center mb-4"></div>
 
               {cartItems &&
                 cartItems.map((item) => {
-                  return <CartItem key={item.id} item={item} />;
+                  return (
+                    <CartItem
+                      key={item.id}
+                      item={item}
+                      isDiscountApplied={isDiscountApplied}
+                    />
+                  );
                 })}
               <MDBCard className="mb-4">
                 <MDBCardBody className="p-4 d-flex flex-row">
@@ -64,12 +68,15 @@ export default function ProductCards() {
                     label="Discount code"
                     wrapperClass="flex-fill"
                     size="lg"
+                    value={discountCode}
+                    onChange={(e) => setDiscountCode(e.target.value)}
                   />
                   <MDBBtn
-                    className="ms-3 w-60" // Added w-100 for full width or adjust with custom width
+                    className="ms-3 w-100"
                     color="primary"
                     outline
                     size="lg"
+                    onClick={handleApplyDiscount}
                   >
                     Apply
                   </MDBBtn>
@@ -85,6 +92,16 @@ export default function ProductCards() {
                     ${totalAmount.toFixed(2)}
                   </MDBTypography>
                 </MDBCardBody>
+                {isDiscountApplied && (
+                  <MDBCardBody className="p-4 d-flex justify-content-between">
+                    <MDBTypography tag="h6" className="text-success mb-0">
+                      Discount Applied:
+                    </MDBTypography>
+                    <MDBTypography tag="h6" className="text-success mb-0">
+                      -${discountAmount.toFixed(2)}
+                    </MDBTypography>
+                  </MDBCardBody>
+                )}
               </MDBCard>
 
               <MDBCard>
