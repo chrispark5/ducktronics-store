@@ -118,7 +118,7 @@ export const ProductCard = ({ product, translate }) => {
         key={product.id}
         className="block group-hover/product:shadow-2xl "
       >
-        <Image
+        <img
           src={`/images/${product.category}/${product.name}.jpg`}
           height="600"
           width="600"
