@@ -10,6 +10,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { Slide, useScrollTrigger } from "@mui/material";
 import Link from "next/link";
+import QuackleSvgIcon from "./QuackleSvgIcon";
 import {
   IconHome,
   IconMessage,
@@ -17,6 +18,7 @@ import {
   IconUser,
 } from "@tabler/icons-react";
 import { useRouter } from "next/router";
+
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -130,14 +132,16 @@ export default function SearchAppBar() {
             > */}
             {/* <MenuIcon />
             </IconButton> */}
+            <QuackleSvgIcon />
             <Typography
               variant="h6"
               noWrap
               component="div"
               sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             >
-              Ducktronics 🦆🔋
+              Quackle
             </Typography>
+
             {/* Navigation Links */}
             <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
               {navItems.map((navItem, idx) => (
