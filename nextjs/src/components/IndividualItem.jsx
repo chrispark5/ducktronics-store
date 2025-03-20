@@ -1,25 +1,45 @@
 import { useEffect, useRef, useState } from "react";
-import { Box, Typography, Grid, Paper, Rating, Button } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Grid,
+  Paper,
+  Rating,
+  Button,
+  TextField,
+} from "@mui/material";
 import { useCartStore } from "@/hooks/CartStore";
 import { useAddToWishlist } from "@/hooks/useAddToWishlist";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 import { useRouter } from "next/router";
+import Carousel from "./ui/carousel";
 
 export default function IndividualItem({ id }) {
   const [item, setItem] = useState(null);
+  const [reviews, setReviews] = useState([]); // State for reviews
+  const [newReview, setNewReview] = useState({ rating: 0, comment: "" }); // State for new review
   const [isSaved, setIsSaved] = useState(false);
   const [token, setToken] = useState(null);
   const router = useRouter();
+
   useEffect(() => {
     if (!id) return;
 
+    // Fetch product details
     fetch(`http://localhost:5001/product/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("Product data:", data);
-        setItem(data); // Set the product item
+        setItem(data);
       })
       .catch((error) => console.error("Error fetching product:", error));
+
+    // Fetch reviews for the product
+    fetch(`http://localhost:5001/product/${id}/reviews`)
+      .then((response) => response.json())
+      .then((data) => {
+        setReviews(data);
+      })
+      .catch((error) => console.error("Error fetching reviews:", error));
 
     // Retrieve token only on client-side
     if (typeof window !== "undefined") {
@@ -80,6 +100,37 @@ export default function IndividualItem({ id }) {
     setIsSaved(true);
   };
 
+  const handleAddReview = async () => {
+    if (!token) {
+      router.push("/login");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:5001/product/${id}/review`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(newReview),
+        }
+      );
+
+      if (response.ok) {
+        const addedReview = await response.json();
+        setReviews((prev) => [...prev, addedReview]); // Add the new review to the list
+        setNewReview({ rating: 0, comment: "" }); // Reset the form
+      } else {
+        console.error("Failed to add review.");
+      }
+    } catch (error) {
+      console.error("Error adding review:", error);
+    }
+  };
+
   return (
     <>
       {item && (
@@ -132,16 +183,22 @@ export default function IndividualItem({ id }) {
                 marginBottom: 2,
                 display: "flex",
                 justifyContent: "center",
+                flexDirection: "row",
+                gap: 2, // Adds spacing between buttons
               }}
             >
+              {/* Save to Wishlist Button */}
               <button
                 onClick={handleAddToWishlist}
-                disabled={isSaved} // Disable if saved or loading
-                className={`flex items-center gap-2 px-4 py-2 rounded transition ${
-                  isSaved
-                    ? "bg-gray-400 text-white cursor-not-allowed"
-                    : "bg-blue-500 hover:bg-blue-600 text-white"
-                }`}
+                disabled={isSaved}
+                className={`flex items-center justify-center gap-2 px-6 py-3 rounded-md transition text-white 
+      ${
+        isSaved
+          ? "bg-gray-400 cursor-not-allowed"
+          : "bg-blue-500 hover:bg-blue-600"
+      }
+    `}
+                style={{ height: "48px" }} // Explicit height
               >
                 {isSaved ? (
                   <>
@@ -155,26 +212,73 @@ export default function IndividualItem({ id }) {
                   </>
                 )}
               </button>
+
+              {/* Add to Cart Button */}
+              <Button
+                ref={cardRef}
+                variant="contained"
+                color="primary"
+                size="large"
+                sx={{
+                  paddingX: 4,
+                  minWidth: "160px", // Wider button
+                  height: "48px", // Match height with wishlist button
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "8px", // Match border radius
+                  backgroundColor: added ? "gray" : "blue",
+                  "&:hover": { backgroundColor: added ? "gray" : "darkblue" },
+                }}
+                onClick={() => addItem(item)}
+                disabled={added}
+              >
+                {added ? "Added" : "Add to Cart"}
+              </Button>
+            </Box>
+            {/* Reviews Section */}
+            <Box sx={{ marginTop: 4, width: "100%" }}>
+              <Typography variant="h5" sx={{ marginBottom: 2 }}>
+                Reviews
+              </Typography>
+              {reviews.length > 0 ? (
+                <Carousel reviews={reviews} />
+              ) : (
+                <Typography>No reviews yet. Be the first to review!</Typography>
+              )}
             </Box>
 
-            {/* Add to Cart Button */}
-
-            <Button
-              ref={cardRef}
-              variant="contained"
-              color="primary"
-              size="large"
-              sx={{ paddingX: 4 }}
-              className={`mt-4 w-full py-2 px-4 rounded-md 
-    ${
-      added ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
-    } 
-    text-white`}
-              onClick={() => addItem(item)}
-              disabled={added} // Disable the button if 'added' is true
-            >
-              {added ? "Added" : "Add to Cart"}
-            </Button>
+            {/* Add Review Form */}
+            <Box sx={{ marginTop: 4, width: "100%" }}>
+              <Typography variant="h6" sx={{ marginBottom: 2 }}>
+                Add a Review
+              </Typography>
+              <Rating
+                value={newReview.rating}
+                onChange={(e, newValue) =>
+                  setNewReview((prev) => ({ ...prev, rating: newValue }))
+                }
+              />
+              <TextField
+                fullWidth
+                multiline
+                rows={4}
+                placeholder="Write your review here..."
+                value={newReview.comment}
+                onChange={(e) =>
+                  setNewReview((prev) => ({ ...prev, comment: e.target.value }))
+                }
+                sx={{ marginTop: 2 }}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ marginTop: 2 }}
+                onClick={handleAddReview}
+              >
+                Submit Review
+              </Button>
+            </Box>
           </Box>
         </Box>
       )}

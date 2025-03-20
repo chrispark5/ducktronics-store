@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import SearchAppBar from "@/components/Navbar";
+import { useCartStore } from "@/hooks/CartStore";
 
 export default function Profile() {
   const [user, setUser] = useState(null); // State to store user data
   const [error, setError] = useState(null); // State to store errors
+  const [updated, setUpdated] = useState(false);
   const [userInfo, setUserInfo] = useState({
     addressLine1: "",
     addressLine2: "",
@@ -56,6 +58,17 @@ export default function Profile() {
             expiryDate: data.creditCardInfo?.expiryDate || "",
             cvv: data.creditCardInfo?.cvv || "",
           });
+        } else {
+          setUserInfo({
+            addressLine1: "",
+            addressLine2: "",
+            city: "",
+            state: "",
+            zipCode: "",
+            cardNumber: "",
+            expiryDate: "",
+            cvv: "",
+          });
         }
       })
       .catch((error) => {
@@ -66,6 +79,7 @@ export default function Profile() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    setUpdated(false);
     setUserInfo((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -96,7 +110,7 @@ export default function Profile() {
       });
 
       if (response.ok) {
-        alert("Profile updated successfully!");
+        setUpdated(true);
       } else {
         const errorMessage = await response.text();
         alert(`Error: ${errorMessage}`);
@@ -109,6 +123,7 @@ export default function Profile() {
 
   const handleLogout = () => {
     localStorage.removeItem("token"); // Remove the token from localStorage
+    useCartStore.getState().clearCart(); // Clear the cart items
     router.push("/login"); // Redirect to the login page
   };
 
@@ -147,7 +162,7 @@ export default function Profile() {
                   type="text"
                   name="addressLine1"
                   placeholder="Address Line 1"
-                  value={userInfo.addressLine1}
+                  value={userInfo?.addressLine1}
                   onChange={handleInputChange}
                   className="w-full mb-2 px-4 py-2 border rounded"
                 />
@@ -155,7 +170,7 @@ export default function Profile() {
                   type="text"
                   name="addressLine2"
                   placeholder="Address Line 2"
-                  value={userInfo.addressLine2}
+                  value={userInfo?.addressLine2}
                   onChange={handleInputChange}
                   className="w-full mb-2 px-4 py-2 border rounded"
                 />
@@ -163,7 +178,7 @@ export default function Profile() {
                   type="text"
                   name="city"
                   placeholder="City"
-                  value={userInfo.city}
+                  value={userInfo?.city}
                   onChange={handleInputChange}
                   className="w-full mb-2 px-4 py-2 border rounded"
                 />
@@ -171,7 +186,7 @@ export default function Profile() {
                   type="text"
                   name="state"
                   placeholder="State"
-                  value={userInfo.state}
+                  value={userInfo?.state}
                   onChange={handleInputChange}
                   className="w-full mb-2 px-4 py-2 border rounded"
                 />
@@ -179,7 +194,7 @@ export default function Profile() {
                   type="text"
                   name="zipCode"
                   placeholder="ZIP Code"
-                  value={userInfo.zipCode}
+                  value={userInfo?.zipCode}
                   onChange={handleInputChange}
                   className="w-full mb-4 px-4 py-2 border rounded"
                 />
@@ -192,7 +207,7 @@ export default function Profile() {
                   type="text"
                   name="cardNumber"
                   placeholder="Card Number"
-                  value={userInfo.cardNumber}
+                  value={userInfo?.cardNumber}
                   onChange={handleInputChange}
                   className="w-full mb-2 px-4 py-2 border rounded"
                 />
@@ -200,7 +215,7 @@ export default function Profile() {
                   type="text"
                   name="expiryDate"
                   placeholder="Expiry Date (MM/YY)"
-                  value={userInfo.expiryDate}
+                  value={userInfo?.expiryDate}
                   onChange={handleInputChange}
                   className="w-full mb-2 px-4 py-2 border rounded"
                 />
@@ -208,16 +223,21 @@ export default function Profile() {
                   type="text"
                   name="cvv"
                   placeholder="CVV"
-                  value={userInfo.cvv}
+                  value={userInfo?.cvv}
                   onChange={handleInputChange}
                   className="w-full mb-4 px-4 py-2 border rounded"
                 />
 
                 <button
                   onClick={handleUpdateProfile}
-                  className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                  className={`w-full py-2 px-4 rounded text-white ${
+                    updated
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-blue-500 hover:bg-blue-600"
+                  }`}
+                  disabled={updated}
                 >
-                  Update Profile
+                  {updated ? "Updated profile!" : "Update Profile"}
                 </button>
               </div>
 

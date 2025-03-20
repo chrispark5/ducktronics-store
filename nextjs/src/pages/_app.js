@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import "@/styles/DuckHunt.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import React from "react";
@@ -84,7 +85,6 @@ const betterTheme = createTheme({
     },
   },
 });
-
 
 export default function App({ Component, pageProps }) {
   return (

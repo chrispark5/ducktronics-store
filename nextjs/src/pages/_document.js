@@ -1,3 +1,4 @@
+import DuckMoodIndicator from "@/components/DuckMoodIndicator";
 import NewFooter from "@/components/Footer";
 import { Html, Head, Main, NextScript } from "next/document";
 
@@ -12,6 +13,16 @@ export default function Document() {
       </Head>
       <body>
         {/* <SearchAppBar /> */}
+        <div
+          style={{
+            position: "fixed",
+            bottom: "20px", // Distance from the bottom of the screen
+            right: "20px", // Distance from the right of the screen
+            zIndex: 1000, // Ensure it stays on top of other elements
+          }}
+        >
+          <DuckMoodIndicator />
+        </div>
         <Main />
         <NewFooter />
         <NextScript />

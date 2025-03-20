@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { useCartStore } from "@/hooks/CartStore";
 import { useTheme } from "@mui/material/styles";
 
 export default function Login() {
@@ -27,7 +28,8 @@ export default function Login() {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("token", data.token); // Save JWT token
-        router.push("/wishlist"); // Redirect to wishlist page
+        useCartStore.getState().fetchCart(); // Fetch cart items
+        router.push("/profile"); // Redirect to wishlist page
       } else {
         const message = await response.text();
         setError(message);

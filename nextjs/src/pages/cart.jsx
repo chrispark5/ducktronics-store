@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   MDBBtn,
   MDBCard,
@@ -18,6 +18,7 @@ export default function ProductCards() {
   const cartItems = useCartStore((state) => state.cartItems);
   const clearCart = useCartStore((state) => state.clearCart);
   // State for discount code and total amount
+  const [user, setUser] = useState(null);
   const [discountCode, setDiscountCode] = useState("");
   const [isDiscountApplied, setIsDiscountApplied] = useState(false);
   const router = useRouter();
@@ -33,7 +34,52 @@ export default function ProductCards() {
     expiryDate: "",
     cvv: "",
   });
+  useEffect(() => {
+    const token = localStorage.getItem("token"); // Retrieve the JWT token
 
+    if (!token) {
+      // Redirect to login if no token is found
+      router.push("/login");
+      return;
+    }
+
+    // Fetch user profile data
+    fetch("http://localhost:5001/profile", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+      },
+    })
+      .then((response) => {
+        if (response.status === 401 || response.status === 403) {
+          // Redirect to login if the token is invalid or expired
+          router.push("/login");
+          return;
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setUser(data);
+        // Pre-fill the form with existing user data if available
+        if (data.address || data.creditCardInfo) {
+          setUserInfo({
+            addressLine1: data.address?.addressLine1 || "",
+            addressLine2: data.address?.addressLine2 || "",
+            city: data.address?.city || "",
+            state: data.address?.state || "",
+            zipCode: data.address?.zipCode || "",
+            cardNumber: data.creditCardInfo?.cardNumber || "",
+            expiryDate: data.creditCardInfo?.expiryDate || "",
+            cvv: data.creditCardInfo?.cvv || "",
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching profile:", error);
+        setError("Failed to load profile. Please try again.");
+      });
+  }, [router]);
   // Calculate the total amount
   const originalTotalAmount = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -43,7 +89,7 @@ export default function ProductCards() {
   const totalAmount = originalTotalAmount - discountAmount;
 
   const handleApplyDiscount = () => {
-    if (discountCode === "duckracewinner") {
+    if (discountCode === "duckracewinner" || discountCode === "DUCKHUNTCHAMP") {
       setIsDiscountApplied(true);
     } else {
       alert("Invalid discount code");
@@ -198,7 +244,7 @@ export default function ProductCards() {
                     label="Card Number"
                     size="lg"
                     type="text"
-                    className="mb-1"
+                    className="mb-3"
                     name="cardNumber"
                     value={userInfo.cardNumber}
                     onChange={handleInputChange}
@@ -209,7 +255,7 @@ export default function ProductCards() {
                         label="Expiry Date"
                         size="lg"
                         type="text"
-                        className="mb-1"
+                        className="mb-3"
                         name="expiryDate"
                         value={userInfo.expiryDate}
                         onChange={handleInputChange}
@@ -220,7 +266,7 @@ export default function ProductCards() {
                         label="CVV"
                         size="lg"
                         type="text"
-                        className="mb-1"
+                        className="mb-3"
                         name="cvv"
                         value={userInfo.cvv}
                         onChange={handleInputChange}
@@ -239,7 +285,7 @@ export default function ProductCards() {
                     label="Full Name"
                     size="lg"
                     type="text"
-                    className="mb-1"
+                    className="mb-3"
                     name="fullName"
                     value={userInfo.fullName}
                     onChange={handleInputChange}
@@ -248,7 +294,7 @@ export default function ProductCards() {
                     label="Address Line 1"
                     size="lg"
                     type="text"
-                    className="mb-1"
+                    className="mb-3"
                     name="addressLine1"
                     value={userInfo.addressLine1}
                     onChange={handleInputChange}
@@ -257,7 +303,7 @@ export default function ProductCards() {
                     label="Address Line 2"
                     size="lg"
                     type="text"
-                    className="mb-1"
+                    className="mb-3"
                     name="addressLine2"
                     value={userInfo.addressLine2}
                     onChange={handleInputChange}
@@ -266,7 +312,7 @@ export default function ProductCards() {
                     label="City"
                     size="lg"
                     type="text"
-                    className="mb-1"
+                    className="mb-3"
                     name="city"
                     value={userInfo.city}
                     onChange={handleInputChange}

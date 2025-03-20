@@ -311,22 +311,25 @@ app.get("/profile", authenticateToken, async (req, res) => {
       return res.status(404).send("User not found.");
     }
 
-    // Return the user's email and username
     res.json({
       username: user.username,
       email: user.email,
-      address: {
-        addressLine1: user.address.addressLine1,
-        addressLine2: user.address.addressLine2,
-        city: user.address.city,
-        state: user.address.state,
-        zipCode: user.address.zipCode,
-      },
-      creditCardInfo: {
-        cardNumber: user.creditCardInfo.cardNumber,
-        cvv: user.creditCardInfo.cvv,
-        expiryDate: user.creditCardInfo.expiryDate,
-      },
+      ...(user.address && {
+        address: {
+          addressLine1: user.address.addressLine1,
+          addressLine2: user.address.addressLine2,
+          city: user.address.city,
+          state: user.address.state,
+          zipCode: user.address.zipCode,
+        },
+      }),
+      ...(user.creditCardInfo && {
+        creditCardInfo: {
+          cardNumber: user.creditCardInfo.cardNumber,
+          cvv: user.creditCardInfo.cvv,
+          expiryDate: user.creditCardInfo.expiryDate,
+        },
+      }),
     });
   } catch (e) {
     console.error(e);
@@ -376,6 +379,101 @@ app.post("/profile/update", authenticateToken, async (req, res) => {
   } catch (e) {
     console.error(e);
     res.status(500).send("An error occurred while updating the profile.");
+  }
+});
+// Save or Update Cart Items
+app.post("/cart", authenticateToken, async (req, res) => {
+  const { cartItems } = req.body;
+
+  if (!cartItems || !Array.isArray(cartItems)) {
+    return res.status(400).send("Invalid cart items.");
+  }
+
+  try {
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection("carts");
+
+    // Upsert the user's cart (insert if it doesn't exist, update if it does)
+    const result = await collection.updateOne(
+      { userId: req.user.id }, // Match by userId
+      { $set: { cartItems } }, // Update the cart items
+      { upsert: true } // Insert if it doesn't exist
+    );
+
+    res.status(200).send("Cart updated successfully.");
+  } catch (e) {
+    console.error(e);
+    res.status(500).send("An error occurred while updating the cart.");
+  }
+});
+
+// Fetch Cart Items
+app.get("/cart", authenticateToken, async (req, res) => {
+  try {
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection("carts");
+
+    // Find the user's cart by userId
+    const cart = await collection.findOne({ userId: req.user.id });
+
+    if (!cart) {
+      return res.status(404).send("Cart not found.");
+    }
+
+    res.json(cart.cartItems);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send("An error occurred while fetching the cart.");
+  }
+});
+
+// Add a review for a product
+app.post("/product/:id/review", authenticateToken, async (req, res) => {
+  const { id } = req.params;
+  const { rating, comment } = req.body;
+
+  if (!comment) {
+    return res.status(400).send("Rating and comment are required.");
+  }
+
+  try {
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection("reviews");
+
+    const review = {
+      productId: id,
+      userId: req.user.id,
+      username: req.user.username, // Assuming username is in the JWT payload
+      rating,
+      comment,
+      createdAt: new Date(),
+    };
+
+    await collection.insertOne(review);
+    res.status(201).send(review);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send("An error occurred while adding the review.");
+  }
+});
+
+// Get reviews for a product
+app.get("/product/:id/reviews", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection("reviews");
+
+    const reviews = await collection.find({ productId: id }).toArray();
+    res.json(reviews);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send("An error occurred while fetching reviews.");
   }
 });
 // Start the server
