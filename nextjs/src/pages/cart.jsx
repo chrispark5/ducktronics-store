@@ -13,6 +13,7 @@ import CartItem from "@/components/CartItem";
 import { useCartStore } from "@/hooks/CartStore";
 import SearchAppBar from "@/components/Navbar";
 import { useRouter } from "next/router";
+import ImageTrail2 from "@/components/ImageTrail2";
 
 export default function ProductCards() {
   const cartItems = useCartStore((state) => state.cartItems);
@@ -149,6 +150,7 @@ export default function ProductCards() {
     <div className="my-20">
       <SearchAppBar />
       <section className="h-100">
+        <ImageTrail2 />
         <MDBContainer fluid className="py-5 h-100">
           <MDBRow className="justify-content-center align-items-center h-100">
             {/* Left Column: Cart Items */}

@@ -5,6 +5,7 @@ import { FloatingNavDemo } from "@/components/FloatingNavbar";
 import { CartProvider } from "@/hooks/CartContext";
 import Categories from "@/components/Categories";
 import SearchAppBar from "@/components/Navbar";
+import ImageTrail from "@/blocks/Animations/ImageTrail/ImageTrail";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <SearchAppBar />
       <div className="space-y-8">
         <QuackleHeroParallaxActual />
+
         <Categories />
       </div>
     </>

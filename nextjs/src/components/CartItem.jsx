@@ -20,6 +20,7 @@ import {
 import { IconTrash, IconPlus, IconMinus } from "@tabler/icons-react";
 
 import { useCartStore } from "@/hooks/CartStore";
+import ImageTrail2 from "./ImageTrail2";
 
 const CartItem = ({ item, isDiscountApplied }) => {
   const addToCart = useCartStore((state) => state.addToCart);
@@ -44,6 +45,7 @@ const CartItem = ({ item, isDiscountApplied }) => {
     <>
       <MDBCard className="rounded-3 mb-4">
         <MDBCardBody className="p-4">
+          <ImageTrail2 />
           <MDBRow className="justify-content-between align-items-center">
             <MDBCol md="2" lg="2" xl="2">
               <MDBCardImage
@@ -83,6 +85,7 @@ const CartItem = ({ item, isDiscountApplied }) => {
                 className=" px-2 mr-2 d-flex justify-content-center align-items-center"
                 onClick={() => addToCart(item)}
               >
+                <ImageTrail2 />
                 {/* <MDBIcon fas icon="plus" /> */}
                 <IconPlus />
               </MDBBtn>

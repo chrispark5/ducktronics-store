@@ -4,6 +4,8 @@ import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import React from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import "@/blocks/Animations/ImageTrail/ImageTrail.css";
+import Layout from "@/components/Layout";
 
 const betterTheme = createTheme({
   palette: {
@@ -88,8 +90,10 @@ const betterTheme = createTheme({
 
 export default function App({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={betterTheme}>
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <Layout>
+      <ThemeProvider theme={betterTheme}>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </Layout>
   );
 }
