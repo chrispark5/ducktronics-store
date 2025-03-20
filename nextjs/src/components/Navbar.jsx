@@ -127,7 +127,7 @@ export default function SearchAppBar() {
               component="div"
               sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             >
-              Quackle
+              Ducktronics
             </Typography>
 
             <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
