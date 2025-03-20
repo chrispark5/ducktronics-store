@@ -8,7 +8,7 @@ const betterTheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#D2042D", //Red
+      main: "#00BFFF", //Pond Blue
       contrastText: "#ffffff",
     },
     secondary: {
@@ -16,15 +16,15 @@ const betterTheme = createTheme({
       contrastText: "#ffffff",
     },
     text: {
-      primary: "#000000",
-      secondary: "#D2042D", //Red,
+      primary: "#A9A9A9", //Tech Gray
+      secondary: "#ffffff",
     },
     background: {
       light: "#eeeeee",
       medium: "#e0e0e0",
       dark: "#bdbdbd",
       white: "#ffffff",
-      primary: "#D2042D", //Red
+      primary: "#00BFFF", //Red
       paper: "#ffffff",
       default: "#ffffff",
     },

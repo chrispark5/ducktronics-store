@@ -32,7 +32,7 @@ export default function CategoryCards({ categoryArray }) {
                 >
                   <h2
                     className="max-w-80 md:text-xl lg:text-3xl font-semibold"
-                    style={{ color: theme.palette.secondary.main }}
+                    style={{ color: theme.palette.text.secondary }}
                   >
                     {category}
                   </h2>

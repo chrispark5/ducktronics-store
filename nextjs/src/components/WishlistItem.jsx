@@ -27,14 +27,14 @@ export default function WishlistItem({ item, handleRemoveClick }) {
           {item.product.name}
         </h2>
         {/* Product Price */}
-        <p className="text-lg font-bold text-blue-600 mt-2">
+        <p className="text-lg font-bold text-sky-500 mt-2">
           ${item.product.price.toFixed(2)}
         </p>
         {/* Remove from Wishlist Button */}
         <button
           className={`mt-4 w-full py-2 px-4 rounded-md 
     ${
-      added ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+      added ? "bg-gray-400 cursor-not-allowed" : "bg-sky-500 hover:bg-sky-600"
     } 
     text-white`}
           onClick={() => addItem(item.product)}

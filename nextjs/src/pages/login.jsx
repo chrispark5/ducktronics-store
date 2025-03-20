@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { useTheme } from "@mui/material/styles";
 
 export default function Login() {
+  const theme = useTheme();
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const router = useRouter();
@@ -66,14 +68,14 @@ export default function Login() {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700"
+            className="w-full bg-sky-500 text-white py-2 px-4 rounded-lg hover:bg-sky-600"
           >
             Login
           </button>
         </form>
         <p className="text-center text-gray-600 mt-4">
           Don't have an account?{" "}
-          <a href="/register" className="text-blue-600 hover:underline">
+          <a href="/register" className="text-sky-500 hover:underline">
             Register
           </a>
         </p>
