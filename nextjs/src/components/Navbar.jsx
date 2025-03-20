@@ -27,7 +27,7 @@ const Search = styled("div")(({ theme }) => ({
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  color: "black",
+  color: theme.palette.text.primary,
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
@@ -44,14 +44,14 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  color: "black",
+  color: theme.palette.text.primary,
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "black",
+  color: theme.palette.text.primary,
   width: "100%",
   "& .MuiInputBase-input": {
-    color: "black",
+    color: theme.palette.text.primary,
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
@@ -75,22 +75,23 @@ function HideOnScroll({ children }) {
 }
 
 export default function SearchAppBar() {
-  const [searchTerm, setSearchTerm] = React.useState(""); // State for search term
+  const [searchTerm, setSearchTerm] = React.useState("");
   const router = useRouter();
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
+
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     if (searchTerm) {
       router.push(`/search?query=${searchTerm}`);
     }
   };
-  // Handle Enter key press
+
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      handleSearchSubmit(event); // Trigger the search submit
+      handleSearchSubmit(event);
     }
   };
 
@@ -117,21 +118,8 @@ export default function SearchAppBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <HideOnScroll>
-        <AppBar
-          position="fixed"
-          color="#4db6ac
-"
-        >
+        <AppBar position="fixed" color="primary">
           <Toolbar>
-            {/* <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              sx={{ mr: 2 }}
-            > */}
-            {/* <MenuIcon />
-            </IconButton> */}
             <QuackleSvgIcon />
             <Typography
               variant="h6"
@@ -142,7 +130,6 @@ export default function SearchAppBar() {
               Quackle
             </Typography>
 
-            {/* Navigation Links */}
             <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
               {navItems.map((navItem, idx) => (
                 <Link
@@ -155,7 +142,7 @@ export default function SearchAppBar() {
                 </Link>
               ))}
             </Box>
-            {/* Search Bar */}
+
             <Search component="form" onSubmit={handleSearchSubmit}>
               <SearchIconWrapper>
                 <SearchIcon />
