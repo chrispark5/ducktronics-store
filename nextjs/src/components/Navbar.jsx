@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import { Slide, useScrollTrigger } from "@mui/material";
+import { Slide, useScrollTrigger, Menu, MenuItem, Button } from "@mui/material";
 import Link from "next/link";
 import QuackleSvgIcon from "./QuackleSvgIcon";
 import {
@@ -16,9 +16,11 @@ import {
   IconMessage,
   IconShoppingCart,
   IconUser,
+  IconCategory,
+  IconHeart,
+  IconUserCircle,
 } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -75,7 +77,8 @@ function HideOnScroll({ children }) {
 }
 
 export default function SearchAppBar() {
-  const [searchTerm, setSearchTerm] = React.useState("");
+  const [searchTerm, setSearchTerm] = React.useState(""); // State for search term
+  const [anchorEl, setAnchorEl] = React.useState(null); // State for dropdown menu
   const router = useRouter();
 
   const handleSearchChange = (event) => {
@@ -95,24 +98,67 @@ export default function SearchAppBar() {
     }
   };
 
+  // Handle dropdown menu
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleCategoryClick = (category) => {
+    router.push(`/products/${category}`);
+    handleMenuClose();
+  };
+
+  // Handle dropdown menu
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleCategoryClick = (category) => {
+    router.push(`/products/${category}`);
+    handleMenuClose();
+  };
+
   const navItems = [
     {
       name: "Home",
       link: "/",
-      icon: <IconHome className="h-4 w-4 text-neutral-500 dark:text-white" />,
+      icon: <IconHome className="h-4 w-4 text-white dark:text-white " />,
     },
     {
-      name: "About",
-      link: "/about",
-      icon: <IconUser className="h-4 w-4 text-neutral-500 dark:text-white" />,
+      name: "Profile",
+      link: "/profile",
+      icon: <IconUserCircle className="h-4 w-4 text-white dark:text-white " />,
     },
     {
       name: "Cart",
       link: "/cart",
       icon: (
-        <IconShoppingCart className="h-4 w-4 text-neutral-500 dark:text-white" />
+        <IconShoppingCart className="h-4 w-4 text-white dark:text-white " />
       ),
     },
+    {
+      name: "Wishlist",
+      link: "/wishlist",
+      icon: <IconHeart className="h-4 w-4 text-white dark:text-white " />,
+    },
+  ];
+
+  const categories = [
+    "accessories",
+    "audio",
+    "computers",
+    "phones",
+    "tablets",
+    "watches",
+    "home",
   ];
 
   return (
@@ -141,6 +187,34 @@ export default function SearchAppBar() {
                   <span className="hidden sm:inline">{navItem.name}</span>
                 </Link>
               ))}
+              {/* Categories Dropdown */}
+              <Button
+                aria-controls="categories-menu"
+                aria-haspopup="true"
+                onClick={handleMenuOpen}
+                startIcon={<IconCategory />}
+                sx={{ color: "white" }}
+              >
+                Categories
+              </Button>
+              <Menu
+                id="categories-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                MenuListProps={{
+                  "aria-labelledby": "categories-button",
+                }}
+              >
+                {categories.map((category, idx) => (
+                  <MenuItem
+                    key={`category-${idx}`}
+                    onClick={() => handleCategoryClick(category)}
+                  >
+                    {category}
+                  </MenuItem>
+                ))}
+              </Menu>
             </Box>
 
             <Search component="form" onSubmit={handleSearchSubmit}>

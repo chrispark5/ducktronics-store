@@ -39,7 +39,8 @@ export default function IndividualCategory({ category }) {
       <div className="px-3 py-8">
         {/* Category Header */}
         <h2 className="text-3xl font-semibold mb-6 text-center text-gray-800">
-          {category} {/* Dynamic Category Name */}
+          {category && category.charAt(0).toUpperCase() + category.slice(1)}{" "}
+          {/* Dynamic Category Name */}
         </h2>
 
         {/* Grid Layout for Products */}

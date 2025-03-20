@@ -13,7 +13,7 @@ export default function SearchPage() {
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
   const [filter, setFilter] = useState(""); // Filter state
   const [sort, setSort] = useState(""); // Sort state
-  const itemsPerPage = 6; // Number of items per page
+  const itemsPerPage = 9; // Number of items per page
   const placeholders = [
     "Search for products",
     "Search for items",

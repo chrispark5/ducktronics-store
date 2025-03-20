@@ -97,7 +97,7 @@ const CartItem = ({ item, isDiscountApplied }) => {
                   className="text-success mb-0"
                   style={{ fontSize: "0.9rem" }}
                 >
-                  Discount Applied!
+                  -{(item.price * item.quantity).toFixed(2)}
                 </MDBTypography>
               )}
             </MDBCol>

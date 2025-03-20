@@ -1,18 +1,50 @@
 import { useEffect, useRef, useState } from "react";
 import { Box, Typography, Grid, Paper, Rating, Button } from "@mui/material";
 import { useCartStore } from "@/hooks/CartStore";
+import { useAddToWishlist } from "@/hooks/useAddToWishlist";
+import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
+import { useRouter } from "next/router";
 
 export default function IndividualItem({ id }) {
   const [item, setItem] = useState(null);
+  const [isSaved, setIsSaved] = useState(false);
+  const [token, setToken] = useState(null);
+  const router = useRouter();
   useEffect(() => {
     if (!id) return;
+
     fetch(`http://localhost:5001/product/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        setItem(data);
-      });
+        console.log("Product data:", data);
+        setItem(data); // Set the product item
+      })
+      .catch((error) => console.error("Error fetching product:", error));
+
+    // Retrieve token only on client-side
+    if (typeof window !== "undefined") {
+      setToken(localStorage.getItem("token"));
+    }
   }, [id]);
+
+  useEffect(() => {
+    if (!item || !item._id || !token) return; // Wait for item._id & token
+
+    fetch(`http://localhost:5001/wishlist/${item._id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Wishlist data:", data);
+        setIsSaved(data.exists);
+      })
+      .catch((error) => console.error("Error checking wishlist:", error));
+  }, [item, token]); //
+
   const cardRef = useRef(null); // Reference to the item card
   const [added, setAdded] = useState(false);
   const addToCart = useCartStore((state) => state.addToCart);
@@ -36,6 +68,16 @@ export default function IndividualItem({ id }) {
   const addItem = (item) => {
     addToCart(item);
     setAdded(true);
+  };
+
+  const { addToWishlist, loading, error } = useAddToWishlist();
+  const handleAddToWishlist = async () => {
+    if (!token) {
+      router.push("/login");
+      return;
+    }
+    await addToWishlist(item);
+    setIsSaved(true);
   };
 
   return (
@@ -84,6 +126,35 @@ export default function IndividualItem({ id }) {
             {/* item Rating */}
             <Box sx={{ marginBottom: 2 }}>
               <Rating value={item.rating} readOnly />
+            </Box>
+            <Box
+              sx={{
+                marginBottom: 2,
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <button
+                onClick={handleAddToWishlist}
+                disabled={isSaved} // Disable if saved or loading
+                className={`flex items-center gap-2 px-4 py-2 rounded transition ${
+                  isSaved
+                    ? "bg-gray-400 text-white cursor-not-allowed"
+                    : "bg-blue-500 hover:bg-blue-600 text-white"
+                }`}
+              >
+                {isSaved ? (
+                  <>
+                    <IconHeartFilled size={20} className="text-white" />
+                    Saved
+                  </>
+                ) : (
+                  <>
+                    <IconHeart size={20} className="text-white" />
+                    Save to Wishlist
+                  </>
+                )}
+              </button>
             </Box>
 
             {/* Add to Cart Button */}

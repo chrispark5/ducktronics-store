@@ -117,8 +117,9 @@ export const ProductCard = ({ product, translate }) => {
         href="/product/[id]"
         as={`/product/${product.id}`}
         key={product.id}
-        className="block group-hover/product:shadow-2xl "
+        className="block group-hover/product:shadow-2xl"
       >
+        {/* Product Image */}
         <img
           src={`/images/${product.category}/${product.name}.jpg`}
           height="600"
@@ -127,8 +128,11 @@ export const ProductCard = ({ product, translate }) => {
           alt={product.name}
         />
 
-        <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
-        <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white text-overlay z-10">
+        {/* Overlay */}
+        <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black transition-opacity duration-300"></div>
+
+        {/* Product Name */}
+        <h2 className="absolute bottom-4 left-4 text-white text-lg font-semibold opacity-0 group-hover/product:opacity-100 transition-opacity duration-300 z-10">
           {product.name}
         </h2>
       </Link>

@@ -12,13 +12,27 @@ import {
 import CartItem from "@/components/CartItem";
 import { useCartStore } from "@/hooks/CartStore";
 import SearchAppBar from "@/components/Navbar";
+import { useRouter } from "next/router";
 
 export default function ProductCards() {
   const cartItems = useCartStore((state) => state.cartItems);
-
+  const clearCart = useCartStore((state) => state.clearCart);
   // State for discount code and total amount
   const [discountCode, setDiscountCode] = useState("");
   const [isDiscountApplied, setIsDiscountApplied] = useState(false);
+  const router = useRouter();
+  // User information state
+  const [userInfo, setUserInfo] = useState({
+    fullName: "",
+    addressLine1: "",
+    addressLine2: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    cardNumber: "",
+    expiryDate: "",
+    cvv: "",
+  });
 
   // Calculate the total amount
   const originalTotalAmount = cartItems.reduce(
@@ -33,6 +47,55 @@ export default function ProductCards() {
       setIsDiscountApplied(true);
     } else {
       alert("Invalid discount code");
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserInfo((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleCheckout = async () => {
+    const orderData = {
+      userInfo: {
+        fullName: userInfo.fullName,
+        addressLine1: userInfo.addressLine1,
+        addressLine2: userInfo.addressLine2,
+        city: userInfo.city,
+        state: userInfo.state,
+        zipCode: userInfo.zipCode,
+      },
+      paymentInfo: {
+        cardNumber: userInfo.cardNumber,
+        expiryDate: userInfo.expiryDate,
+        cvv: userInfo.cvv,
+      },
+      items: cartItems.map((item) => ({
+        id: item.id,
+        quantity: item.quantity,
+        price: item.price,
+      })),
+      totalAmount,
+    };
+
+    try {
+      const response = await fetch("http://localhost:5001/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (response.ok) {
+        clearCart();
+        router.push("/confirmation");
+      } else {
+        alert("Failed to place order. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+      alert("An error occurred. Please try again.");
     }
   };
 
@@ -106,7 +169,13 @@ export default function ProductCards() {
 
               <MDBCard>
                 <MDBCardBody>
-                  <MDBBtn className="ms-3" color="primary" block size="lg">
+                  <MDBBtn
+                    className="ms-3"
+                    color="primary"
+                    block
+                    size="lg"
+                    onClick={handleCheckout}
+                  >
                     Checkout
                   </MDBBtn>
                 </MDBCardBody>
@@ -130,6 +199,9 @@ export default function ProductCards() {
                     size="lg"
                     type="text"
                     className="mb-1"
+                    name="cardNumber"
+                    value={userInfo.cardNumber}
+                    onChange={handleInputChange}
                   />
                   <MDBRow className="mb-3">
                     <MDBCol md="6">
@@ -138,6 +210,9 @@ export default function ProductCards() {
                         size="lg"
                         type="text"
                         className="mb-1"
+                        name="expiryDate"
+                        value={userInfo.expiryDate}
+                        onChange={handleInputChange}
                       />
                     </MDBCol>
                     <MDBCol md="6">
@@ -146,6 +221,9 @@ export default function ProductCards() {
                         size="lg"
                         type="text"
                         className="mb-1"
+                        name="cvv"
+                        value={userInfo.cvv}
+                        onChange={handleInputChange}
                       />
                     </MDBCol>
                   </MDBRow>
@@ -162,31 +240,57 @@ export default function ProductCards() {
                     size="lg"
                     type="text"
                     className="mb-1"
+                    name="fullName"
+                    value={userInfo.fullName}
+                    onChange={handleInputChange}
                   />
                   <MDBInput
                     label="Address Line 1"
                     size="lg"
                     type="text"
                     className="mb-1"
+                    name="addressLine1"
+                    value={userInfo.addressLine1}
+                    onChange={handleInputChange}
                   />
                   <MDBInput
                     label="Address Line 2"
                     size="lg"
                     type="text"
                     className="mb-1"
+                    name="addressLine2"
+                    value={userInfo.addressLine2}
+                    onChange={handleInputChange}
                   />
                   <MDBInput
                     label="City"
                     size="lg"
                     type="text"
                     className="mb-1"
+                    name="city"
+                    value={userInfo.city}
+                    onChange={handleInputChange}
                   />
                   <MDBRow className="mb-3">
                     <MDBCol md="6">
-                      <MDBInput label="State" size="lg" type="text" />
+                      <MDBInput
+                        label="State"
+                        size="lg"
+                        type="text"
+                        name="state"
+                        value={userInfo.state}
+                        onChange={handleInputChange}
+                      />
                     </MDBCol>
                     <MDBCol md="6">
-                      <MDBInput label="ZIP Code" size="lg" type="text" />
+                      <MDBInput
+                        label="ZIP Code"
+                        size="lg"
+                        type="text"
+                        name="zipCode"
+                        value={userInfo.zipCode}
+                        onChange={handleInputChange}
+                      />
                     </MDBCol>
                   </MDBRow>
                 </MDBCardBody>
