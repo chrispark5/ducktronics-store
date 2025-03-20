@@ -112,20 +112,6 @@ export default function SearchAppBar() {
     handleMenuClose();
   };
 
-  // Handle dropdown menu
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleCategoryClick = (category) => {
-    router.push(`/products/${category}`);
-    handleMenuClose();
-  };
-
   const navItems = [
     {
       name: "Home",
