@@ -50,8 +50,7 @@ export default function NewFooter() {
               </h6>
               <p>
                 Your one-stop shop for the best in duck-friendly technology!
-                From waterproof gadgets to AI-powered quack translators, we've
-                got it all.
+                From the newest qPhones to boomBoxes, we've got it all.
               </p>
             </div>
 
@@ -82,22 +81,22 @@ export default function NewFooter() {
             <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">Customer Service</h6>
               <p>
-                <a href="/support" className="text-reset">
+                <a href="/404" className="text-reset">
                   Support Center
                 </a>
               </p>
               <p>
-                <a href="/shipping" className="text-reset">
+                <a href="/404" className="text-reset">
                   Shipping Info
                 </a>
               </p>
               <p>
-                <a href="/returns" className="text-reset">
+                <a href="/404" className="text-reset">
                   Returns & Refunds
                 </a>
               </p>
               <p>
-                <a href="/faq" className="text-reset">
+                <a href="/404" className="text-reset">
                   FAQs
                 </a>
               </p>
@@ -135,7 +134,7 @@ export default function NewFooter() {
         style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
       >
         © 2025 Ducktronics - Your Trusted Duck Tech Provider.
-        <a className="text-reset fw-bold" href="https://ducktronics.com/">
+        <a className="text-reset fw-bold" href="/">
           {" "}
           Visit Ducktronics
         </a>

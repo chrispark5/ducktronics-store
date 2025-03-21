@@ -1,5 +1,6 @@
+import Crosshair from "@/blocks/Animations/Crosshair/Crosshair";
 import SearchAppBar from "@/components/Navbar";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const DuckHunt = () => {
   const [ducks, setDucks] = useState([]);
@@ -42,12 +43,14 @@ const DuckHunt = () => {
     setDucks((prevDucks) => prevDucks.filter((duck) => duck.id !== id));
     setScore(score + 1);
   };
+  const containerRef = useRef(null);
 
   return (
     <>
       <SearchAppBar />
 
-      <div className="game-container my-20">
+      <div className="game-container my-20" ref={containerRef}>
+        <Crosshair containerRef={containerRef} color="red" />
         <h1>🦆 Duck Hunt</h1>
         <p>
           Time Left: {timeLeft}s | Score: {score}

@@ -63,7 +63,7 @@ export default function ProductCards() {
       .then((data) => {
         setUser(data);
         // Pre-fill the form with existing user data if available
-        if (data.address || data.creditCardInfo) {
+        if (data?.address || data?.creditCardInfo) {
           setUserInfo({
             addressLine1: data.address?.addressLine1 || "",
             addressLine2: data.address?.addressLine2 || "",
