@@ -111,7 +111,7 @@ export const ProductCard = ({ product, translate }) => {
         y: -20,
       }}
       key={product.id}
-      className="group/product h-96 w-[30rem] relative shrink-0"
+      className="product-card group h-96 w-[30rem] relative shrink-0"
     >
       <Link
         href="/product/[id]"
@@ -124,18 +124,49 @@ export const ProductCard = ({ product, translate }) => {
           src={`/images/${product.category}/${product.name}.jpg`}
           height="600"
           width="600"
-          className="object-cover object-left-top absolute h-full w-full inset-0"
+          className="product-image object-cover object-left-top absolute h-full w-full inset-0"
           alt={product.name}
         />
-
         {/* Overlay */}
-        <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black transition-opacity duration-300"></div>
-
+        <div className="product-overlay absolute inset-0 h-full w-full group-hover:opacity-80 bg-black transition-opacity duration-300"></div>
         {/* Product Name */}
-        <h2 className="absolute bottom-4 left-4 text-white text-lg font-semibold opacity-0 group-hover/product:opacity-100 transition-opacity duration-300 z-10">
+        <h2 className="product-name absolute bottom-4 left-4 text-white text-lg font-semibold  group-hover:opacity-100 transition-opacity duration-300 z-10">
           {product.name}
         </h2>
       </Link>
+    </motion.div>
+  );
+};
+
+export const ProductCard2 = ({ product, translate }) => {
+  return (
+    <motion.div
+      style={{
+        x: translate,
+      }}
+      whileHover={{
+        y: -20,
+      }}
+      key={product.name}
+      className="group/product h-96 w-[30rem] relative shrink-0"
+    >
+      <Link
+        href="/product/[id]"
+        as={`/product/${product.id}`}
+        className="block group-hover/product:shadow-2xl "
+      >
+        <Image
+          src={`/images/${product.category}/${product.name}.jpg`}
+          height="600"
+          width="600"
+          className="object-cover object-left-top absolute h-full w-full inset-0"
+          alt={product.name}
+        />
+      </Link>
+      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
+      <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
+        {product.name}
+      </h2>
     </motion.div>
   );
 };

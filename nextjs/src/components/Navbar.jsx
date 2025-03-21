@@ -29,7 +29,7 @@ const Search = styled("div")(({ theme }) => ({
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  color: theme.palette.text.primary,
+  color: "white",
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
@@ -46,14 +46,14 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  color: theme.palette.text.primary,
+  color: "white",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: theme.palette.text.primary,
+  color: "white",
   width: "100%",
   "& .MuiInputBase-input": {
-    color: theme.palette.text.primary,
+    color: "white",
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
@@ -213,6 +213,7 @@ export default function SearchAppBar() {
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
                 onKeyDown={handleKeyDown}
+                color="white"
               />
             </Search>
           </Toolbar>

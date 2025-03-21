@@ -153,3 +153,35 @@ html {
     }
   }
 }
+/* Product Card Styles */
+.product-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-image {
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.product-overlay {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-card:hover .product-overlay {
+  opacity: 0.5; /* Dark overlay on hover */
+}
+
+.product-name {
+  opacity: 0;
+  z-index: 10;
+  transition: opacity 0.3s ease;
+}
+
+.product-card:hover .product-name {
+  opacity: 1; /* Show product name on hover */
+}
