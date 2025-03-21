@@ -27,6 +27,9 @@ in the server folder, create a .env file and include
 MONGO_DB_URL = 'mongodb://localhost:27017'
 MONGO_DB = 'online_store'
 MONGO_DB_COLLECTION = 'products'
+
+# Set your own secret key for JWT authentication  
+JWT_SECRET = 'your_secret_key_here'
 ```
 
 ### 3️⃣ Install Dependencies
