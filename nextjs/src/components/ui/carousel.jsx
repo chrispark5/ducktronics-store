@@ -166,7 +166,7 @@ export default function Carousel({ reviews }) {
   useEffect(() => {
     const interval = setInterval(() => {
       handleNextClick();
-    }, 3000); // Change slide every 3 seconds
+    }, 4000); // Change slide every 3 seconds
 
     return () => clearInterval(interval); // Cleanup on unmount
   }, [current]);

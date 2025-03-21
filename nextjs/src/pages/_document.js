@@ -1,3 +1,4 @@
+import TextCursor from "@/blocks/TextAnimations/TextCursor/TextCursor";
 import DuckMoodIndicator from "@/components/DuckMoodIndicator";
 import NewFooter from "@/components/Footer";
 import { Html, Head, Main, NextScript } from "next/document";
@@ -27,6 +28,7 @@ export default function Document() {
         >
           <DuckMoodIndicator />
         </div>
+
         <Main />
         <NewFooter />
         <NextScript />

@@ -6,6 +6,7 @@ import { CartProvider } from "@/hooks/CartContext";
 import Categories from "@/components/Categories";
 import SearchAppBar from "@/components/Navbar";
 import ImageTrail from "@/blocks/Animations/ImageTrail/ImageTrail";
+import TextCursor from "@/blocks/TextAnimations/TextCursor/TextCursor";
 
 export default function Home() {
   return (

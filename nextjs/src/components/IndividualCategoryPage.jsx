@@ -44,7 +44,7 @@ export default function IndividualCategory({ category }) {
         </h2>
 
         {/* Grid Layout for Products */}
-        <div className="grid lg:grid-cols-3 gap-4">
+        <div className="grid lg:grid-cols-3 gap-8">
           {paginatedProducts.map((product) => (
             <ItemCard key={product.id} product={product} />
           ))}

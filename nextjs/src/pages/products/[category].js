@@ -9,7 +9,7 @@ export default function CategoryPage() {
   const { category } = router.query;
 
   return (
-    <div className="my-20">
+    <div className="my-20 flex flex-col items-center justify-space-around">
       {/* <FloatingNavDemo /> */}
       {/* <SearchAppBar /> */}
       <IndividualCategory category={category} />

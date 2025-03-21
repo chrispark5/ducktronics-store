@@ -240,15 +240,13 @@ app.post("/register", async (req, res) => {
       return res.status(409).send("Username or email already exists.");
     }
 
-    // Hash the password
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Save the user to the database
     const result = await collection.insertOne({
       username,
       email,
-      password: hashedPassword, // Store the hashed password
+      password: hashedPassword,
       createdAt: new Date(),
     });
 

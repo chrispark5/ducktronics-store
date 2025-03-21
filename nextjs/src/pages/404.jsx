@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef } from "react";
 const DuckHunt = () => {
   const [ducks, setDucks] = useState([]);
   const [score, setScore] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(10);
+  const [timeLeft, setTimeLeft] = useState(7);
   const [gameStarted, setGameStarted] = useState(false); // State to control the dialog
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const DuckHunt = () => {
   const restartGame = () => {
     setDucks([]);
     setScore(0);
-    setTimeLeft(10);
+    setTimeLeft(7);
     setGameStarted(false); // Show the dialog again after restarting
   };
 
@@ -77,7 +77,7 @@ const DuckHunt = () => {
           <>
             {timeLeft === 0 ? (
               <div className="text-center p-6 bg-yellow-100 border border-yellow-300 rounded-lg shadow-lg game-area ">
-                {score >= 5 ? (
+                {score >= 3 ? (
                   <>
                     <h2 className="text-2xl font-bold text-red-600">
                       🎯 Game Over! Final Score: {score}

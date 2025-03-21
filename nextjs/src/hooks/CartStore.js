@@ -6,7 +6,6 @@ export const useCartStore = create(
     (set, get) => ({
       cartItems: [],
 
-      // Fetch cart items from the database
       fetchCart: async () => {
         const token = localStorage.getItem("token");
         if (!token) return;
@@ -22,7 +21,7 @@ export const useCartStore = create(
 
           if (response.ok) {
             const cartItems = await response.json();
-            set({ cartItems }); // Set the fetched cart items in the store
+            set({ cartItems });
           } else {
             console.error("Failed to fetch cart items.");
           }
@@ -31,7 +30,6 @@ export const useCartStore = create(
         }
       },
 
-      // Sync cart items with the database
       syncCart: async () => {
         const token = localStorage.getItem("token");
         if (!token) return;
@@ -61,7 +59,6 @@ export const useCartStore = create(
           );
 
           if (existingItem) {
-            // If item exists, increase its quantity
             return {
               cartItems: state.cartItems.map((cartItem) =>
                 cartItem.id === item.id
@@ -70,14 +67,13 @@ export const useCartStore = create(
               ),
             };
           } else {
-            // If item doesn't exist, add it with quantity 1
             return {
               cartItems: [...state.cartItems, { ...item, quantity: 1 }],
             };
           }
         });
 
-        get().syncCart(); // Sync the updated cart with the database
+        get().syncCart();
       },
 
       removeFromCart: (itemId) => {
@@ -91,10 +87,10 @@ export const useCartStore = create(
                   }
                 : item
             )
-            .filter((item) => item.quantity !== undefined), // Remove the item if its quantity is undefined
+            .filter((item) => item.quantity !== undefined),
         }));
 
-        get().syncCart(); // Sync the updated cart with the database
+        get().syncCart();
       },
 
       removeItemCompletely: (itemId) => {
@@ -102,16 +98,16 @@ export const useCartStore = create(
           cartItems: state.cartItems.filter((item) => item.id !== itemId),
         }));
 
-        get().syncCart(); // Sync the updated cart with the database
+        get().syncCart();
       },
 
       clearCart: () => {
         set({ cartItems: [] });
-        get().syncCart(); // Sync the cleared cart with the database
+        get().syncCart();
       },
     }),
     {
-      name: "cart-storage", // Key in localStorage
+      name: "cart-storage",
     }
   )
 );

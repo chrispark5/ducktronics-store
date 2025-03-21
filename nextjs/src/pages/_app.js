@@ -9,6 +9,8 @@ import Layout from "@/components/Layout";
 import "@/blocks/Components/FlowingMenu/FlowingMenu.css";
 import "@/blocks/TextAnimations/RotatingText/RotatingText";
 import "@/blocks/TextAnimations/RotatingText/RotatingText.css";
+import "@/blocks/TextAnimations/TextCursor/TextCursor.css";
+import TextCursor from "@/blocks/TextAnimations/TextCursor/TextCursor";
 const betterTheme = createTheme({
   palette: {
     mode: "light",
@@ -94,6 +96,7 @@ export default function App({ Component, pageProps }) {
   return (
     <Layout>
       <ThemeProvider theme={betterTheme}>
+        <TextCursor />
         <Component {...pageProps} />
       </ThemeProvider>
     </Layout>
