@@ -10,8 +10,6 @@ Ducktronics Store is an e-commerce platform built with **Next.js**, **Express**,
 - **Authentication:** JWT with bcrypt hashing & salting
 - **Machine Learning:** scikit-learn KNN model
 
-## 📂 Project Structure
-
 ## 📌 Setup Instructions
 
 ### 1️⃣ Clone the repository
@@ -66,10 +64,28 @@ The frontend should now be running at http://localhost:3000 🚀
 
 🔐 Authentication
 
-    •	Uses JWT tokens for user authentication.
-    •	Passwords are securely hashed & salted with bcrypt.
+• Uses JWT tokens for user authentication.
+• Passwords are securely hashed & salted with bcrypt.
 
 🤖 Machine Learning Model
 
-    •	Implements a KNN-based recommendation system using scikit-learn.
-    •	Helps suggest similar products to users based on past purchases.
+• Implements a KNN-based recommendation system using scikit-learn.
+• Helps suggest similar products to users based on past purchases.
+
+### 📷 Screenshots
+
+### Home Page
+
+![Home Page](/nextjs/public/images/readme/homepage.png)
+
+### Product Details
+
+![Product Details](/nextjs/public/images/readme/item.png)
+
+### Cart
+
+![cart](/nextjs/public/images/readme/cart.png)
+
+### 404 Page
+
+![404](/nextjs/public/images/readme/duckhunt.png)
