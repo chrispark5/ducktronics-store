@@ -89,7 +89,11 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Poppins", sans-serif !important;
+}
+* {
+  /* font-family: "Poppins", sans-serif !important; */
+  font-family: "Inter", sans-serif !important;
 }
 
 .dark {
@@ -138,4 +142,58 @@ body {
 body,
 html {
   position: relative;
+}
+
+@theme inline {
+  --animate-scroll: scroll var(--animation-duration, 40s)
+    var(--animation-direction, forwards) linear infinite;
+
+  @keyframes scroll {
+    to {
+      transform: translate(calc(-50% - 0.5rem));
+    }
+  }
+}
+/* Product Card Styles */
+.product-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-image {
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.product-overlay {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-card:hover .product-overlay {
+  opacity: 0.5; /* Dark overlay on hover */
+}
+
+.product-name {
+  opacity: 0;
+  z-index: 10;
+  transition: opacity 0.3s ease;
+}
+
+.product-card:hover .product-name {
+  opacity: 1; /* Show product name on hover */
+}
+.custom-button {
+  background-color: #00bfff !important;
+  border-color: #00bfff !important;
+  color: white !important;
+}
+
+.custom-button:hover {
+  background-color: #00bfffa6 !important;
+  border-color: #00bfffa6 !important;
+  color: white !important;
 }

@@ -13,6 +13,7 @@ import {
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import SearchIcon from "@mui/icons-material/Search";
+import { useRouter } from "next/router";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,15 +59,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export const FloatingNav = ({ navItems, className }) => {
   const { scrollYProgress } = useScroll();
-
+  const router = useRouter();
   const [visible, setVisible] = useState(true); // Change from false to true
+  const [searchTerm, setSearchTerm] = useState(""); // State to hold search term
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
     // Check if current is not undefined and is a number
     if (typeof current === "number") {
       let direction = current - scrollYProgress.getPrevious();
 
-      if (scrollYProgress.get() < 0.05) {
+      if (scrollYProgress.get() < 0.5) {
         setVisible(false);
       } else {
         if (direction < 0) {
@@ -77,6 +79,22 @@ export const FloatingNav = ({ navItems, className }) => {
       }
     }
   });
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    if (searchTerm) {
+      router.push(`/search?query=${searchTerm}`);
+    }
+  };
+  // Handle Enter key press
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSearchSubmit(event); // Trigger the search submit
+    }
+  };
 
   return (
     <AnimatePresence mode="wait">
@@ -90,7 +108,7 @@ export const FloatingNav = ({ navItems, className }) => {
           opacity: visible ? 1 : 0,
         }}
         transition={{
-          duration: 0.2,
+          duration: 0.3,
         }}
         className={cn(
           "flex max-w-fit  fixed top-10 inset-x-0 mx-auto border border-transparent dark:border-white/[0.2] rounded-full dark:bg-black bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] pr-2 pl-8 py-2  items-center justify-center space-x-4",
@@ -113,11 +131,14 @@ export const FloatingNav = ({ navItems, className }) => {
           <span>Login</span>
           <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent  h-px" />
         </button> */}
-        <Search>
+        <Search component="form" onSubmit={handleSearchSubmit}>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
           <StyledInputBase
+            value={searchTerm} // Bind search term state
+            onChange={handleSearchChange} // Update state on change
+            onKeyDown={handleKeyDown} // Handle Enter key press
             placeholder="Search…"
             inputProps={{ "aria-label": "search" }}
           />
