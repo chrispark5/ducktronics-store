@@ -183,7 +183,7 @@ export default function ProductCards() {
                     onChange={(e) => setDiscountCode(e.target.value)}
                   />
                   <MDBBtn
-                    className="ms-3 w-100"
+                    className="ms-3 w-100 custom-button"
                     color="primary"
                     outline
                     size="lg"
@@ -218,7 +218,7 @@ export default function ProductCards() {
               <MDBCard>
                 <MDBCardBody>
                   <MDBBtn
-                    className="ms-3"
+                    className="ms-3 custom-button"
                     color="primary"
                     block
                     size="lg"

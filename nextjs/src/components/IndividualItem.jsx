@@ -191,11 +191,14 @@ export default function IndividualItem({ id }) {
               <button
                 onClick={handleAddToWishlist}
                 disabled={isSaved}
+                sx={{
+                  borderRadius: "8px", // Match border radius
+                }}
                 className={`flex items-center justify-center gap-2 px-6 py-3 rounded-md transition text-white 
       ${
         isSaved
           ? "bg-gray-400 cursor-not-allowed"
-          : "bg-blue-500 hover:bg-blue-600"
+          : "bg-red-500 hover:bg-red-600"
       }
     `}
                 style={{ height: "48px" }} // Explicit height
@@ -227,8 +230,8 @@ export default function IndividualItem({ id }) {
                   alignItems: "center",
                   justifyContent: "center",
                   borderRadius: "8px", // Match border radius
-                  backgroundColor: added ? "gray" : "blue",
-                  "&:hover": { backgroundColor: added ? "gray" : "darkblue" },
+                  backgroundColor: added ? "gray" : "#00BFFF",
+                  "&:hover": { backgroundColor: added ? "gray" : "#00BFFF" },
                 }}
                 onClick={() => addItem(item)}
                 disabled={added}

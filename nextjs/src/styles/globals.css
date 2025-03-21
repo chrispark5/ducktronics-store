@@ -92,7 +92,8 @@ body {
   font-family: "Poppins", sans-serif !important;
 }
 * {
-  font-family: "Poppins", sans-serif !important;
+  /* font-family: "Poppins", sans-serif !important; */
+  font-family: "Inter", sans-serif !important;
 }
 
 .dark {
@@ -184,4 +185,15 @@ html {
 
 .product-card:hover .product-name {
   opacity: 1; /* Show product name on hover */
+}
+.custom-button {
+  background-color: #00bfff !important;
+  border-color: #00bfff !important;
+  color: white !important;
+}
+
+.custom-button:hover {
+  background-color: #00bfffa6 !important;
+  border-color: #00bfffa6 !important;
+  color: white !important;
 }

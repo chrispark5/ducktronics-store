@@ -15,16 +15,18 @@ const ImageTrail2 = () => {
     >
       <ImageTrail
         items={[
-          "https://picsum.photos/id/287/300/300",
-          "https://picsum.photos/id/1001/300/300",
-          "https://picsum.photos/id/1025/300/300",
-          "https://picsum.photos/id/1026/300/300",
-          "https://picsum.photos/id/1027/300/300",
-          "https://picsum.photos/id/1028/300/300",
-          "https://picsum.photos/id/1029/300/300",
-          "https://picsum.photos/id/1030/300/300",
+          "/images/ducks/duck1.jpg",
+          "/images/ducks/duck2.jpg",
+          "/images/ducks/duck3.jpg",
+          "/images/ducks/duck4.jpg",
+          "/images/ducks/duck5.jpg",
+          "/images/ducks/duck6.jpg",
+          "/images/ducks/duck-glasses.jpeg",
+          "/images/ducks/duck-hat.jpeg",
+          "/images/ducks/fancy-duck.jpg",
+          "/images/ducks/mouth-duck.jpg",
         ]}
-        variant={1}
+        variant={3}
       />
     </div>
   );

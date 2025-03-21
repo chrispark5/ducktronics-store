@@ -15,7 +15,7 @@ export default function Categories() {
 
   return (
     <>
-      <Box textAlign="center" my={12}>
+      <Box textAlign="center" my={8}>
         <Typography variant="h1" color="primary" fontWeight="bold">
           Categories
         </Typography>

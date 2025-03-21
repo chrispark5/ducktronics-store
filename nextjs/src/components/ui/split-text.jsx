@@ -67,6 +67,8 @@ const SplitText = ({
         display: "inline",
         whiteSpace: "normal",
         wordWrap: "break-word",
+        fontSize: "6rem", // Increased font size
+        lineHeight: "1", // Prevents extra spacing
       }}
     >
       {words.map((word, wordIndex) => (

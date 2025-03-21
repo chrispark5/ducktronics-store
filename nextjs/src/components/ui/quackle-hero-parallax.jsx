@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import SplitText from "./split-text";
+import RotatingText from "@/blocks/TextAnimations/RotatingText/RotatingText";
 
 export const QuackleHeroParallax = ({ products }) => {
   const firstRow = products.slice(0, 5);
@@ -44,7 +45,7 @@ export const QuackleHeroParallax = ({ products }) => {
   return (
     <div
       ref={ref}
-      className="h-[300vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="h-[250vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -90,8 +91,8 @@ export const QuackleHeroParallax = ({ products }) => {
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
-      <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
+    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0">
+      <h1 className="text-6xl md:text-[12rem] font-bold text-black leading-none">
         <SplitText text={"Ducktronics"} />
       </h1>
       <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">

@@ -47,7 +47,7 @@ export default function Profile() {
       .then((data) => {
         setUser(data);
         // Pre-fill the form with existing user data if available
-        if (data.address || data.creditCardInfo) {
+        if (data?.address || data?.creditCardInfo) {
           setUserInfo({
             addressLine1: data.address?.addressLine1 || "",
             addressLine2: data.address?.addressLine2 || "",
@@ -232,8 +232,8 @@ export default function Profile() {
                   onClick={handleUpdateProfile}
                   className={`w-full py-2 px-4 rounded text-white ${
                     updated
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-blue-500 hover:bg-blue-600"
+                      ? "bg-[#00BFFF] cursor-not-allowed"
+                      : "bg-[#00BFFF] hover:bg-[#00BFFF]"
                   }`}
                   disabled={updated}
                 >

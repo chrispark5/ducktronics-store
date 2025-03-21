@@ -12,9 +12,8 @@ export default function Home() {
     <>
       {/* <FloatingNavDemo /> */}
       <SearchAppBar />
-      <div className="space-y-8">
+      <div className="space-y-1">
         <QuackleHeroParallaxActual />
-
         <Categories />
       </div>
     </>

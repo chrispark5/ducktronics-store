@@ -6,7 +6,9 @@ import React from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "@/blocks/Animations/ImageTrail/ImageTrail.css";
 import Layout from "@/components/Layout";
-
+import "@/blocks/Components/FlowingMenu/FlowingMenu.css";
+import "@/blocks/TextAnimations/RotatingText/RotatingText";
+import "@/blocks/TextAnimations/RotatingText/RotatingText.css";
 const betterTheme = createTheme({
   palette: {
     mode: "light",
@@ -31,60 +33,60 @@ const betterTheme = createTheme({
       paper: "#ffffff",
       default: "#ffffff",
     },
-    typography: {
-      allVariants: {
-        fontFamily: "Montserrat, sans-serif",
-        fontWeight: "700",
-      },
-      h1: {
-        fontFamily: "Montserrat, sans-serif",
-        fontWeight: "700",
-      },
-      h2: {
-        fontFamily: "Montserrat, sans-serif",
-        fontWeight: "700",
-      },
-      h3: {
-        fontFamily: "Montserrat, sans-serif",
-        fontWeight: "700",
-      },
-      h4: {
-        fontFamily: "Montserrat, sans-serif",
-        fontWeight: "700",
-      },
-      h5: {
-        fontFamily: "Montserrat, sans-serif",
-        fontWeight: "700",
-      },
-      h6: {
-        fontFamily: "Montserrat, sans-serif",
-        fontWeight: "700",
-      },
-      subtitle1: {
-        fontFamily: "Roboto, sans-serif",
-        fontWeight: "700",
-      },
-      subtitle2: {
-        fontFamily: "Roboto, sans-serif",
-        fontWeight: "700",
-      },
-      body1: {
-        fontFamily: "Roboto, sans-serif",
-      },
-      body2: {
-        fontFamily: "Roboto, sans-serif",
-      },
-      button: {
-        fontFamily: "Montserrat, sans-serif",
-        fontWeight: "700",
-      },
-      caption: {
-        fontFamily: "Roboto, sans-serif",
-      },
-      overline: {
-        fontFamily: "Roboto, sans-serif",
-      },
-    },
+    // typography: {
+    //   allVariants: {
+    //     fontFamily: "Montserrat, sans-serif",
+    //     fontWeight: "700",
+    //   },
+    //   h1: {
+    //     fontFamily: "Montserrat, sans-serif",
+    //     fontWeight: "700",
+    //   },
+    //   h2: {
+    //     fontFamily: "Montserrat, sans-serif",
+    //     fontWeight: "700",
+    //   },
+    //   h3: {
+    //     fontFamily: "Montserrat, sans-serif",
+    //     fontWeight: "700",
+    //   },
+    //   h4: {
+    //     fontFamily: "Montserrat, sans-serif",
+    //     fontWeight: "700",
+    //   },
+    //   h5: {
+    //     fontFamily: "Montserrat, sans-serif",
+    //     fontWeight: "700",
+    //   },
+    //   h6: {
+    //     fontFamily: "Montserrat, sans-serif",
+    //     fontWeight: "700",
+    //   },
+    //   subtitle1: {
+    //     fontFamily: "Roboto, sans-serif",
+    //     fontWeight: "700",
+    //   },
+    //   subtitle2: {
+    //     fontFamily: "Roboto, sans-serif",
+    //     fontWeight: "700",
+    //   },
+    //   body1: {
+    //     fontFamily: "Roboto, sans-serif",
+    //   },
+    //   body2: {
+    //     fontFamily: "Roboto, sans-serif",
+    //   },
+    //   button: {
+    //     fontFamily: "Montserrat, sans-serif",
+    //     fontWeight: "700",
+    //   },
+    //   caption: {
+    //     fontFamily: "Roboto, sans-serif",
+    //   },
+    //   overline: {
+    //     fontFamily: "Roboto, sans-serif",
+    //   },
+    // },
   },
 });
 

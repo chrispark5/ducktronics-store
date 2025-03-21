@@ -49,7 +49,7 @@ export default function ItemCard({ product }) {
         {/* Product Color */}
         <p className="text-md text-gray-600 mt-2">{product.color}</p>
         {/* Product Price */}
-        <p className="text-lg font-bold text-blue-600 mt-2">
+        <p className="text-lg font-bold text-[#00BFFF] mt-2">
           ${product.price.toFixed(2)}
         </p>
         {/* Product Category */}
@@ -67,7 +67,9 @@ export default function ItemCard({ product }) {
         <button
           className={`mt-4 w-full py-2 px-4 rounded-md 
     ${
-      added ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+      added
+        ? "bg-gray-400 cursor-not-allowed"
+        : "bg-[#00BFFF] hover:bg-[#0099CC]"
     } 
     text-white`}
           onClick={() => addItem(product)}
