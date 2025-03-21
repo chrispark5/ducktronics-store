@@ -1,14 +1,24 @@
 # 🦆 Ducktronics Store
 
-Ducktronics Store is an e-commerce platform built with **Next.js**, **Express**, **MongoDB**, and **JWT authentication**. It also incorporates **bcrypt hashing** for password security and a **scikit-learn KNN model** for recommendations.
+Ducktronics Store is an e-commerce tech platform built with **Next.js**, **Express**, **MongoDB**, and **JWT authentication**. It also incorporates **bcrypt hashing** for password security and a **scikit-learn KNN model** for recommendations.
 
 ## 🚀 Tech Stack
 
-- **Frontend:** Next.js
-- **Backend:** Express.js
-- **Database:** MongoDB
-- **Authentication:** JWT with bcrypt hashing & salting
-- **Machine Learning:** scikit-learn KNN model
+- **Frontend:** Next.js 🦆
+- **Backend:** Express.js 🛠️
+- **Database:** MongoDB 🗄️
+- **Authentication:** JWT with bcrypt hashing & salting 🔐
+- **State Management:** Zustand 🧠
+- **UI Libraries:** Aceternity UI, Material UI, Tailwind CSS, React Bits 🎨
+- **Machine Learning:** scikit-learn KNN model 🤖
+
+## 🦆 Features
+
+✅ **Secure JWT authentication** for safe transactions  
+✅ **Fast and responsive UI** powered by Tailwind & Material UI  
+✅ **Machine Learning recommendations** using KNN  
+✅ **Duck-themed tech shopping experience** 🛒  
+✅ **Built in just 2.5 days!** ⏳🔥
 
 ## 📌 Setup Instructions
 
@@ -28,7 +38,7 @@ MONGO_DB_URL = 'mongodb://localhost:27017'
 MONGO_DB = 'online_store'
 MONGO_DB_COLLECTION = 'products'
 
-# Set your own secret key for JWT authentication  
+# Set your own secret key for JWT authentication
 JWT_SECRET = 'your_secret_key_here'
 ```
 
