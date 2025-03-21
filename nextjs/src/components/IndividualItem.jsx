@@ -201,7 +201,7 @@ export default function IndividualItem({ id }) {
           : "bg-red-500 hover:bg-red-600"
       }
     `}
-                style={{ height: "48px" }} // Explicit height
+                style={{ height: "48px", borderRadius: "10px" }} // Explicit height
               >
                 {isSaved ? (
                   <>
